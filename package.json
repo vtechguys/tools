@@ -1,7 +1,7 @@
 {
   "name": "tools",
   "version": "1.0.0",
-  "description": "Example for image uploading in Node",
+  "description": "Image compression and other tools",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
@@ -9,10 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
-    "file-type": "^12.3.0",
     "imagemin": "^7.0.0",
     "imagemin-jpegtran": "^6.0.0",
     "imagemin-mozjpeg": "^8.0.0",

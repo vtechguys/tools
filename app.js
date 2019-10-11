@@ -10,7 +10,7 @@ const utils = require("./utils");
 
 // Set The Storage Engine
 const storage = multer.diskStorage({
-  destination: './public/uploads/',
+  destination: './tempImg/uploads/',
   filename: function(req, file, cb){
     cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
@@ -49,8 +49,8 @@ const app = express();
 // EJS
 app.set('view engine', 'ejs');
 
-// Public Folder
-app.use(express.static('./public'));
+// tempImg Folder
+app.use(express.static('./tempImg'));
 
 app.get('/', (req, res) => res.render('index'));
 
@@ -69,8 +69,8 @@ app.post('/upload', (req, res) => {
 
         const FILE_NAME = req.file.filename;
 
-        const FOLDER_PATH = path.join(__dirname, "public", "uploads");
-        const FOLDER_SAVE_PATH = path.join(__dirname, "public", "compress");
+        const FOLDER_PATH = path.join(__dirname, "tempImg", "uploads");
+        const FOLDER_SAVE_PATH = path.join(__dirname, "tempImg", "compress");
         try{
           utils.minifyImages(FILE_NAME, FOLDER_PATH, FOLDER_SAVE_PATH);
         }

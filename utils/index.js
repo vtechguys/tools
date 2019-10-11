@@ -22,7 +22,7 @@ function fullUrl(req) {
   });
 }
 
-async function compressImages(fileName, pathToFolder = "public/uploads", finalFolderName = "public/compress", qualityMin = 0.3, qualityMax = 0.5){
+async function compressImages(fileName, pathToFolder = "tempImg/uploads", finalFolderName = "tempImg/compress", qualityMin = 0.3, qualityMax = 0.5){
     console.log(`> ${pathToFolder}/${fileName}`);
     console.log("<", finalFolderName);
     let plugins = [

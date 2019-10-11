@@ -5,7 +5,7 @@ const path = require("path");
 function deleteCompressedFiles(){
     cron.schedule('0 2 * * *', () => {
 
-        const directoryPathCompress = path.join(__dirname, '../public', 'compress');
+        const directoryPathCompress = path.join(__dirname, '../tempImg', 'compress');
         //passsing directoryPath and callback function
         fs.readdir(directoryPathCompress, function (err, files) {
             //handling error
@@ -38,7 +38,7 @@ function deleteCompressedFiles(){
 }
 function deleteUploadedFiles(){
     cron.schedule('0 1 * * *', () => {
-        const directoryPathUploads = path.join(__dirname, '../public', 'uploads');
+        const directoryPathUploads = path.join(__dirname, '../tempImg', 'uploads');
         fs.readdir(directoryPathUploads, function (err, files) {
             //handling error
             if (err) {
