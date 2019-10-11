@@ -5,7 +5,6 @@ const imageminMozjpeg = require('imagemin-mozjpeg');
 const imageminOptipng = require('imagemin-optipng');
 const imageminWebp = require('imagemin-webp');
 
-const fileType = require('file-type');
 
 
 
@@ -35,7 +34,8 @@ async function compressImages(fileName, pathToFolder = "tempImg/uploads", finalF
         plugins = [
             imageminMozjpeg({
                 quality: ( qualityMin * 100 )
-            })
+            }),
+            imageminJpegtran()
         ];
     }
     else if(fileName.includes(".png")){
