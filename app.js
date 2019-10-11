@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const multer = require('multer');
 const ejs = require('ejs');
@@ -95,3 +97,15 @@ app.post('/upload', (req, res) => {
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
+
+
+
+
+// cron task
+const CRON_TASK = require("./cron");
+
+
+
+
+CRON_TASK.deleteCompressedFiles();
+CRON_TASK.deleteUploadedFiles();
