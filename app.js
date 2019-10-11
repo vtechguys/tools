@@ -41,9 +41,9 @@ function checkFileType(file, cb){
 
 // Init app
 const app = express();
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// const bodyParser = require('body-parser');
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 // EJS
 app.set('view engine', 'ejs');
 
