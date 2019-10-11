@@ -18,7 +18,7 @@ function deleteCompressedFiles(){
                 fs.unlink(file); 
             });
         });
-        const directoryPathUploads = path.join(__dirname, '../public', 'compress');
+        const directoryPathUploads = path.join(__dirname, '../tempImg', 'compress');
         fs.readdir(directoryPathUploads, function (err, files) {
             //handling error
             if (err) {

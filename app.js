@@ -7,12 +7,12 @@ const path = require('path');
 
 const fs = require("fs");
 const utils = require("./utils");
-
+const randomString = require("randomstring");
 // Set The Storage Engine
 const storage = multer.diskStorage({
   destination: './tempImg/uploads/',
   filename: function(req, file, cb){
-    cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    cb(null,file.fieldname + '-' + randomString.generate(24) + path.extname(file.originalname));
   }
 });
 
@@ -23,7 +23,7 @@ const upload = multer({
   fileFilter: function(req, file, cb){
     checkFileType(file, cb);
   }
-}).single('myImage');
+}).single('image');
 
 // Check File Type
 function checkFileType(file, cb){
