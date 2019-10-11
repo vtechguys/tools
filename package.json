@@ -1,10 +1,10 @@
 {
-  "name": "nodeuploads",
+  "name": "tools",
   "version": "1.0.0",
   "description": "Example for image uploading in Node",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 start app.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
