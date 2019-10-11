@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>File Upload</h1>
+    <h1>Minimizer - chose your file.</h1>
     <%= typeof msg != 'undefined' ? msg : '' %>
     <form action="/upload" method="POST" enctype="multipart/form-data">
       <div class="file-field input-field">
@@ -22,10 +22,15 @@
           <input class="file-path validate" type="text">
         </div>
       </div>
-      <button type="submit" class="btn">Submit</button>
+      <button type="submit" class="btn">Upload</button>
     </form>
     <br>
-    <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
+    
+      <h2>compressedImage Image</h2>
+      <a href="<%= typeof file != 'undefined' ? file : '' %>" download>Download</a>
+      <span >Bigger file takes time.</span>
+      <img src="<%= typeof file != 'undefined' ? file : '' %>"/>
+      <span visible = "<%= typeof file != 'undefined' ? file : '' %>">File @  <%= typeof file != 'undefined' ? file : '' %></span>
   </div>
 
   <script

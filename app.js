@@ -3,6 +3,8 @@ const multer = require('multer');
 const ejs = require('ejs');
 const path = require('path');
 
+const utils = require("./utils");
+
 // Set The Storage Engine
 const storage = multer.diskStorage({
   destination: './public/uploads/',
@@ -59,15 +61,30 @@ app.post('/upload', (req, res) => {
           msg: 'Error: No File Selected!'
         });
       } else {
-        res.render('index', {
-          msg: 'File Uploaded!',
-          file: `uploads/${req.file.filename}`
-        });
+
+        const FILE_NAME = req.file.filename;
+
+        const FOLDER_PATH = path.join(__dirname, "public", "uploads");
+        const FOLDER_SAVE_PATH = path.join(__dirname, "public", "compress");
+        
+        utils.minifyImages(FILE_NAME, FOLDER_PATH, FOLDER_SAVE_PATH);
+        
+        
+
+        const renderOptions =  {
+          msg: `File Uploaded and is being compressed`,
+          file: utils.fullUrl(req)+ `/compress/${FILE_NAME}`,
+        };
+        console.log(renderOptions)
+        res.render('index', renderOptions);
       }
     }
   });
 });
 
-const port = 3000;
+
+
+
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
