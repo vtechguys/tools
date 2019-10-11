@@ -3,6 +3,7 @@ const multer = require('multer');
 const ejs = require('ejs');
 const path = require('path');
 
+const fs = require("fs");
 const utils = require("./utils");
 
 // Set The Storage Engine
@@ -40,7 +41,9 @@ function checkFileType(file, cb){
 
 // Init app
 const app = express();
-
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 // EJS
 app.set('view engine', 'ejs');
 
@@ -66,8 +69,12 @@ app.post('/upload', (req, res) => {
 
         const FOLDER_PATH = path.join(__dirname, "public", "uploads");
         const FOLDER_SAVE_PATH = path.join(__dirname, "public", "compress");
-        
-        utils.minifyImages(FILE_NAME, FOLDER_PATH, FOLDER_SAVE_PATH);
+        try{
+          utils.minifyImages(FILE_NAME, FOLDER_PATH, FOLDER_SAVE_PATH);
+        }
+        catch(e){
+          console.log(e);
+        }
         
         
 

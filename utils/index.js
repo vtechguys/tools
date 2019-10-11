@@ -1,6 +1,13 @@
 const imagemin = require('imagemin');
 const imageminJpegtran = require('imagemin-jpegtran');
 const imageminPngquant = require('imagemin-pngquant');
+const imageminMozjpeg = require('imagemin-mozjpeg');
+const imageminOptipng = require('imagemin-optipng');
+const imageminWebp = require('imagemin-webp');
+
+const fileType = require('file-type');
+
+
 
 const fs = require("fs");
 const path = require("path");
@@ -15,20 +22,44 @@ function fullUrl(req) {
   });
 }
 
-async function compressImages(fileName, pathToFolder = "public/uploads", finalFolderName = "public/compress", qualityX = 0.6, qualityY = 0.8){
+async function compressImages(fileName, pathToFolder = "public/uploads", finalFolderName = "public/compress", qualityMin = 0.3, qualityMax = 0.5){
     console.log(`> ${pathToFolder}/${fileName}`);
     console.log("<", finalFolderName);
+    let plugins = [
+        imageminWebp({
+            quality: qualityMin * 100
+        }),
+    ];
+ 
+    if(fileName.includes(".jpeg")|| fileName.includes(".jpg") ){
+        plugins = [
+            imageminMozjpeg({
+                quality: ( qualityMin * 100 )
+            })
+        ];
+    }
+    else if(fileName.includes(".png")){
+        plugins = [
+            imageminOptipng({
+                optimizationLevel: 5
+            }),
+            imageminPngquant({
+                quality: [qualityMin, qualityMax]
+            }),
+        ];
+    }
+    else{
+        plugins = [
+            imageminWebp({
+                quality: qualityMin * 100 * 2
+            })
+
+        ];
+    }
     try{
         await imagemin([`${pathToFolder}/${fileName}`], {
             destination: finalFolderName,
-            plugins: [
-                imageminJpegtran({
-                    quality: [qualityX, qualityY]
-                }),
-                imageminPngquant({
-                    quality: [qualityX, qualityY]
-                })
-            ]
+            plugins: plugins
         });
     }
     catch(e){
